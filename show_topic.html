@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <title>ChatSpace</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsrender/0.9.90/jsrender.js"></script>
+    <!--<script src="jquery.miranda.min.js"></script>-->
+    <link rel="icon" href="data:,">
+  </head>
+
+  <body>
+    <h1>ChatSpace</h1>
+    <h2>雑談</h2>
+
+    <div class="w3-container">
+
+      <table id = "posts" class="w3-table w3-bordered w3-striped">
+      </table>
+
+    </div>
+
+    <form>
+      名前：<br>
+      <input type="text" id="username" name="username"><br>
+      本文：<br>
+      <input type="text" id="messageBody" name="message"><br>
+      <button type="button" id="submitBtn" class="btn sendBtn">投稿</button>
+    </form>
+
+    <script type="text/javascript">
+    /*$.ajax({
+      url: 'ajax/data.json',
+      type: 'GET',
+    }).done(function(data){
+        var dataArray = JSON.parse(data||"null");
+        //var dataArray = array(data);
+        $.each(dataArray, function(i){
+          $("#posts").append("<tr><th>" + dataArray[i].user + "</th></tr>");
+          $("#posts").append("<tr><td>" + dataArray[i].message + "</td></tr>");
+        });
+        console.log("success");
+      })
+      .fail(function(XMLHttpRequest, textStatus, error){
+        console.log(error);
+        alert(error);
+      });*/
+
+      $.getJSON("ajax/data.json",function(data){
+      	   var dataArray = data.freeTalk;
+
+        	$.each(dataArray, function(i){
+            $("#posts").append("<tr><th>" + dataArray[i].user + "</th></tr>");
+            $("#posts").append("<tr><td>" + dataArray[i].message + "</td></tr>");
+          });
+        }).done(function(data) {
+    console.log( "second success" );
+  })
+  .fail(function(xhr, textStatus, errorThrown) {
+    console.log(xhr);
+    console.log(textStatus);
+    console.log(errorThrown);
+  });
+
+      $("#submitBtn").on("click", function(event){
+        name = $("#username").val();
+        message = $("#messageBody").val();
+        $.ajax({
+          url: 'ajax/returnJson.php',
+          type: 'POST',
+          data: {
+            "username": name,
+            "message": message
+          },
+          //dataType: "json",
+        })
+        .done(function(data){
+          console.log(data);
+          //var dataArray = array(data);
+          $("#posts").append("<tr><th>" + data.user + "</th></tr>");
+          $("#posts").append("<tr><td>" + data.message + "</td></tr>");
+          console.log("success");
+        })
+        .fail(function(XMLHttpRequest, textStatus, error){
+          console.log(error);
+          alert(error);
+        });
+      });
+
+    </script>
+  </body>
+
+</html>

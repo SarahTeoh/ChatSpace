@@ -1,0 +1,28 @@
+{
+    "freeTalk": [
+        {
+            "user": "Aさん",
+            "message": "こんにちは"
+        },
+        {
+            "user": "Bさん",
+            "message": "初めまして"
+        },
+        {
+            "user": "Cさん",
+            "message": "よろしくお願いします"
+        },
+        {
+            "user": null,
+            "message": null
+        },
+        {
+            "user": null,
+            "message": null
+        },
+        {
+            "user": null,
+            "message": null
+        }
+    ]
+}

@@ -2,7 +2,7 @@
 
 // set up host and port
 $host = "127.0.0.1";
-$port = 25003;
+$port = 8085;
 header('Access-Control-Allow-Origin: *');
 
 // don't timeout!
@@ -32,7 +32,6 @@ while(1)
         $file = "show_topic.html";
 
     } else {
-
         $filearray = array();
         $filearray = explode("/", $file, 2);
         $file = $filearray[1];
@@ -44,27 +43,35 @@ echo $file . "\n";
 $output = "";
 $isAjax = explode("/", $filearray[1]);
 if($isAjax[0]=="ajax"){
-  $Header = "HTTP/1.1 200 OK \r\n" .
-  "Date: Fri, 1 Jan 2020 23:59:59 GMT \r\n" .
-  "Content-Type: application/json \r\n\r\n";
+    $Header = "HTTP/1.1 200 OK \r\n" .
+    "Date: Fri, 1 Jan 2020 23:59:59 GMT \r\n" .
+    "Content-Type: application/json ; charset=UTF-8 \r\n\r\n";
   if($isAjax[1]=="data.json"){
-      $Content = file_get_contents($file);
+    $Content = file_get_contents($file);
     }
     else{
-      $Content = include_once($isAjax[1]);
-      echo $Content;
-  }
-}else{
-  $Header = "HTTP/1.1 200 OK \r\n" .
-  "Date: Fri, 1 Jan 2020 23:59:59 GMT \r\n" .
-  "Content-Type: text/html \r\n\r\n";
+      if($fetchArray[0]=='POST'){
+        var_dump($GLOBALS);
+          $parameters = explode("&", $incoming[15]);
+          $user = urldecode(explode("=", $parameters[0])[1]);
+          $message = urldecode(explode("=", $parameters[1])[1]);
+        if(isset($user) && isset($message)){
+            $Content = include($isAjax[1]);
+          }
+      }
+    }
+  }else{
+      $Header = "HTTP/1.1 200 OK \r\n" .
+      "Date: Fri, 1 Jan 2020 23:59:59 GMT \r\n" .
+      "Content-Type: text/html; charset=UTF-8 \r\n\r\n";
 
-  $Content = file_get_contents($file);
-};
-    $output = $Header . $Content;
+      $Content = file_get_contents($file);
+    };
 
-    socket_write($client,$output,strlen($output));
-    socket_close($client);
+$output = $Header . $Content;
+
+socket_write($client,$output,strlen($output));
+socket_close($client);
 }
 
 ?>

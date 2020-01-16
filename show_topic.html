@@ -5,55 +5,43 @@
     <meta charset="utf-8">
     <title>ChatSpace</title>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="css/style.css">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jsrender/0.9.90/jsrender.js"></script>
-    <!--<script src="jquery.miranda.min.js"></script>-->
     <link rel="icon" href="data:,">
   </head>
 
   <body>
-    <h1>ChatSpace</h1>
-    <h2>雑談</h2>
+    <h1 align="center">掲示板</h1>
 
-    <div class="w3-container">
-
-      <table id = "posts" class="w3-table w3-bordered w3-striped">
+    <div class="table-users">
+      <table id = "posts" class="w3-table">
       </table>
-
     </div>
 
     <form>
-      名前：<br>
-      <input type="text" id="username" name="username"><br>
-      本文：<br>
-      <input type="text" id="messageBody" name="message"><br>
-      <button type="button" id="submitBtn" class="btn sendBtn">投稿</button>
+
+        <div  class="inline-block">
+                <label>名前：</label><br>
+                <input class="name-input" id="username" maxlength="80" name="username" placeholder="名前を入力してください"  type="text" />
+        </div>
+        <div  class="inline-block">
+                <label>本文：</label><br>
+                <input class="message-input" id="messageBody" maxlength="80" name="message" placeholder="メッセージを入力してください"  type="text" />
+        </div>
+        <div class="container inline-block">
+              <button type="button" id="submitBtn" class="btn btn4">投稿</button>
+      </div>
     </form>
 
     <script type="text/javascript">
-    /*$.ajax({
-      url: 'ajax/data.json',
-      type: 'GET',
-    }).done(function(data){
-        var dataArray = JSON.parse(data||"null");
-        //var dataArray = array(data);
-        $.each(dataArray, function(i){
-          $("#posts").append("<tr><th>" + dataArray[i].user + "</th></tr>");
-          $("#posts").append("<tr><td>" + dataArray[i].message + "</td></tr>");
-        });
-        console.log("success");
-      })
-      .fail(function(XMLHttpRequest, textStatus, error){
-        console.log(error);
-        alert(error);
-      });*/
 
       $.getJSON("ajax/data.json",function(data){
       	   var dataArray = data.freeTalk;
 
         	$.each(dataArray, function(i){
-            $("#posts").append("<tr><th>" + dataArray[i].user + "</th></tr>");
-            $("#posts").append("<tr><td>" + dataArray[i].message + "</td></tr>");
+            $("#posts").append("<div class=\"headers\"><tr><th>" + dataArray[i].user + "</th></tr></div>");
+            $("#posts").append("<div class=\"message-container\"><tr><td>" + dataArray[i].message + "</td></tr></div><br>");
           });
         }).done(function(data) {
     console.log( "second success" );
@@ -74,16 +62,17 @@
             "username": name,
             "message": message
           },
-          //dataType: "json",
+          dataType: "json",
         })
         .done(function(data){
           console.log(data);
-          //var dataArray = array(data);
-          $("#posts").append("<tr><th>" + data.user + "</th></tr>");
-          $("#posts").append("<tr><td>" + data.message + "</td></tr>");
+          $("#posts").append("<div class=\"headers\"><tr><th>"+ data.user +"</th></tr></div>");
+          $("#posts").append("<div class=\"message-container\"><tr><td>" + data.message + "</td></tr></div><br>");
           console.log("success");
         })
         .fail(function(XMLHttpRequest, textStatus, error){
+          console.log(textStatus);
+          console.log(XMLHttpRequest);
           console.log(error);
           alert(error);
         });

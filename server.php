@@ -2,7 +2,7 @@
 
 // Set up host and port
 $host = "127.0.0.1";
-$port = 8081;
+$port = 9705;
 header('Access-Control-Allow-Origin: *');
 
 // Prevent time out
@@ -68,9 +68,14 @@ if($isAjax[0]=="ajax"){
           $parameters = explode("&", $incoming[15]);
           $user = urldecode(explode("=", $parameters[0])[1]);
           $message = urldecode(explode("=", $parameters[1])[1]);
-        if(isset($user) && isset($message)){ // Checks whether both parameters are set
-            $Content = include($isAjax[0] . "/" . $isAjax[1]); // If parameters are set, send to returnJson.php to process and catch the return
-          }
+        if(empty($user)){ // Checks whether both parameters are set
+          $user = "No name";
+        }
+        if(empty($message)){
+          $message = "No message";
+        }
+        
+        $Content = include($isAjax[0] . "/" . $isAjax[1]); // If parameters are set, send to returnJson.php to process and catch the return
       }
     }
   }else if (explode(".", $filearray[1])[1]=="css") { // Handle css request

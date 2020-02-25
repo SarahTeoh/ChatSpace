@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <title>ChatSpace</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsrender/0.9.90/jsrender.js"></script>
+    <link rel="icon" href="data:,">
+  </head>
+
+  <body>
+    <h1 align="center">掲示板</h1>
+
+    <div class="table-users">
+      <table id = "posts" class="w3-table">
+      </table>
+    </div>
+
+    <form>
+
+        <div  class="inline-block">
+                <label>名前：</label><br>
+                <input class="name-input" id="username" maxlength="80" name="username" placeholder="名前を入力してください"  type="text" />
+        </div>
+        <div  class="inline-block">
+                <label>本文：</label><br>
+                <input class="message-input" id="messageBody" maxlength="80" name="message" placeholder="メッセージを入力してください"  type="text" />
+        </div>
+        <div class="container inline-block">
+              <button type="button" id="submitBtn" class="btn btn4">投稿</button>
+      </div>
+    </form>
+
+    <script type="text/javascript">
+
+      $.getJSON("ajax/data.json",function(data){
+      	   var dataArray = data.freeTalk;
+
+        	$.each(dataArray, function(i){
+            $("#posts").append("<div class=\"headers\"><tr><th>" + dataArray[i].user + "</th></tr></div>");
+            $("#posts").append("<div class=\"message-container\"><tr><td>" + dataArray[i].message + "</td></tr></div><br>");
+          });
+        }).done(function(data) {
+    console.log( "second success" );
+  })
+  .fail(function(xhr, textStatus, errorThrown) {
+    console.log(xhr);
+    console.log(textStatus);
+    console.log(errorThrown);
+  });
+
+      $("#submitBtn").on("click", function(event){
+        name = $("#username").val();
+        message = $("#messageBody").val();
+        $.ajax({
+          url: 'ajax/returnJson.php',
+          type: 'POST',
+          data: {
+            "username": name,
+            "message": message
+          },
+          dataType: "json",
+        })
+        .done(function(data){
+          console.log(data);
+          $("#posts").append("<div class=\"headers\"><tr><th>"+ data.user +"</th></tr></div>");
+          $("#posts").append("<div class=\"message-container\"><tr><td>" + data.message + "</td></tr></div><br>");
+          console.log("success");
+        })
+        .fail(function(XMLHttpRequest, textStatus, error){
+          console.log(textStatus);
+          console.log(XMLHttpRequest);
+          console.log(error);
+          alert(error);
+        });
+      });
+
+    </script>
+  </body>
+
+</html>

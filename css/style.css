@@ -2,12 +2,12 @@ body{
   margin: 0;
   padding: 0;
   overflow: scroll;
-  clear:both;
+  clear: both;
 }
 
 .container{
   text-align: center;
-  margin-top:100px;gi
+  margin-top: 100px;
 }
 .btn{
   border: 1px solid #FFC4A8;
@@ -51,28 +51,28 @@ body{
 .table-users {
   border-spacing: 1;
   border-collapse: collapse;
-  background:white;
-  border-radius:6px;
-  overflow:hidden;
-  max-width:800px;
-  width:80%;
-  margin:0 auto;
-  position:relative;
+  background: white;
+  border-radius: 6px;
+  overflow: hidden;
+  max-width: 800px;
+  width: 80%;
+  margin: 0 auto;
+  position: relative;
 
 }
 
 .headers{
-    height:40px;
-    background:#FFED86;
-    font-size:25px;
+    height: 40px;
+    background: #FFED86;
+    font-size: 25px;
     padding: 4px 20px 2px 20px;
 }
 
 .message-container{
   margin-bottom: 20px;
-  background:#fffae0;
+  background: #fffae0;
   padding: 6px 20px 2px 15px;
-  font-size:18px;
+  font-size: 18px;
 }
 
 label{
@@ -84,9 +84,9 @@ label{
 
 form {
     text-align: center;
-    width:100%;
-    position:relative;
-    bottom:0;
+    width: 100%;
+    position: relative;
+    bottom: 0;
 }
 
 
@@ -102,7 +102,7 @@ form {
 }
 
 .inline-block{
-  display:inline-block;
+  display: inline-block;
   margin-left: auto;
   margin-right: auto;
 }

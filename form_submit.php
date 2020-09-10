@@ -3,7 +3,7 @@
 $board = $_GET['whichBoard'];
 
 header("Content-type: application/json; charset=utf-8");
-$file = './data.json';
+$file = 'ajax/data.json';
 $json = file_get_contents($file);
 $data = json_decode($json, true);
 

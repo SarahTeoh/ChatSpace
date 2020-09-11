@@ -1,6 +1,6 @@
 <?php
 
-$data = array("user" => $user, "message" => $message);
+$data = array("user" => $_POST['user'], "message" => $_POST['message']);
 $string = file_get_contents('./data.json');
 
 $json = json_decode($string);

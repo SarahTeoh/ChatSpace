@@ -40,7 +40,7 @@ while(1)
     // Show homepage
     if($file == "/"){
 
-        $file = "show_topic.html";
+        $file = "index.html";
 
     } else {
         $filearray = array();

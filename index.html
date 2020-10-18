@@ -53,16 +53,17 @@
   });
 
       $("#submitBtn").on("click", function(event){
-        name = $("#username").val();
+        user = $("#username").val();
         message = $("#messageBody").val();
+
         $.ajax({
           url: 'ajax/returnJson.php',
           type: 'POST',
           data: {
-            "user": name,
-            "message": message
+            'user': user,
+            'message': message
           },
-          dataType: "json",
+          dataType: 'json',
         })
         .done(function(data){
           console.log(data);
@@ -74,7 +75,6 @@
           console.log(textStatus);
           console.log(XMLHttpRequest);
           console.log(error);
-          alert(error);
         });
       });
 
